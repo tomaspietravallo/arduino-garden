@@ -5,7 +5,9 @@ const PROJECT_ID = process.env.PROJECT_ID as string;
 const DATASET = process.env.DATASET as string;
 const TABLE = process.env.TABLE as string;
 
-const bigQuery = new BigQuery.BigQuery();
+const isJest = process.env.NODE_ENV === 'test';
+
+const bigQuery = new BigQuery.BigQuery({ projectId: PROJECT_ID, keyFilename: (isJest ? `../../key.json` : undefined) });
 
 interface RequestData {
   arduino_data: {
@@ -31,24 +33,24 @@ interface Request extends Functions.Request {
   body: RequestData;
 };
 
-async function logData(req: Request) {
-  console.log(JSON.stringify(req.body));
-  console.log(JSON.stringify(req.body.arduino_data));
-  console.log(req.body.arduino_data);
-  const rows: BigQueryDataSchema[] = req.body.arduino_data
-  .map((data) => ({ date: data.u, soil_humidity: data.h, temperature: data.t }));
+export async function logData(req: Request) {
+  const rows = req.body.arduino_data
+  .map((data) => ({ date: new Date(data.u), soil_humidity: data.h, temperature: data.t }));
   
-  return await bigQuery
-  .dataset(DATASET, { projectId: PROJECT_ID })
+  return await bigQuery.dataset(DATASET)
   .table(TABLE)
-  .insert(rows)
+  .insert(rows, {
+    skipInvalidRows: false,
+    ignoreUnknownValues: false,
+    createInsertId: false
+  });
 }
 
-async function pushNotificationToUser() {
+export async function pushNotificationToUser() {
   /** empty */
 }
 
-const entry: Functions.HttpFunction = async (req: Request, res) => {
+export const entry: Functions.HttpFunction = async (req: Request, res) => {
   const resolveRequest = await logData(req);
   console.log(resolveRequest)
 

@@ -36,12 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+exports.entry = exports.pushNotificationToUser = exports.logData = void 0;
 var Functions = require("@google-cloud/functions-framework");
 var BigQuery = require("@google-cloud/bigquery");
 var PROJECT_ID = process.env.PROJECT_ID;
 var DATASET = process.env.DATASET;
 var TABLE = process.env.TABLE;
-var bigQuery = new BigQuery.BigQuery();
+var isJest = process.env.NODE_ENV === 'test';
+var bigQuery = new BigQuery.BigQuery({ projectId: PROJECT_ID, keyFilename: (isJest ? "../../key.json" : undefined) });
 ;
 function logData(req) {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,20 +51,21 @@ function logData(req) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(JSON.stringify(req.body));
-                    console.log(JSON.stringify(req.body.arduino_data));
-                    console.log(req.body.arduino_data);
                     rows = req.body.arduino_data
-                        .map(function (data) { return ({ date: data.u, soil_humidity: data.h, temperature: data.t }); });
-                    return [4 /*yield*/, bigQuery
-                            .dataset(DATASET, { projectId: PROJECT_ID })
+                        .map(function (data) { return ({ date: new Date(data.u), soil_humidity: data.h, temperature: data.t }); });
+                    return [4 /*yield*/, bigQuery.dataset(DATASET)
                             .table(TABLE)
-                            .insert(rows)];
+                            .insert(rows, {
+                            skipInvalidRows: false,
+                            ignoreUnknownValues: false,
+                            createInsertId: false
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     });
 }
+exports.logData = logData;
 function pushNotificationToUser() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -70,6 +73,7 @@ function pushNotificationToUser() {
         });
     });
 }
+exports.pushNotificationToUser = pushNotificationToUser;
 var entry = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var resolveRequest;
     return __generator(this, function (_a) {
@@ -83,4 +87,5 @@ var entry = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
         }
     });
 }); };
-Functions.http('entry', entry);
+exports.entry = entry;
+Functions.http('entry', exports.entry);
