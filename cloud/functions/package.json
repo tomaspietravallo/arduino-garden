@@ -12,6 +12,6 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc ./src/*.ts"
+    "build": "tsc ./src/*.ts --outDir ."
   }
 }
