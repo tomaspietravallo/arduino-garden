@@ -1,9 +1,36 @@
-import * as functions from '@google-cloud/functions-framework';
-functions.http('entry', (req, res) => {
-    const body = `${JSON.stringify(req.body)}`;
-    console.log(`logs: ${body}`);
-    res.status(200).json(body);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import * as Functions from '@google-cloud/functions-framework';
+import * as BigQuery from '@google-cloud/bigquery';
+const PROJECT_ID = process.env.PROJECT_ID;
+const DATASET = process.env.DATASET;
+const TABLE = process.env.TABLE;
+const bigQuery = new BigQuery.BigQuery();
+;
+function logData(req) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const rows = req.body.arduino_data
+            .map((data) => ({ date: data.u, soil_humidity: data.h, temperature: data.t }));
+        return yield bigQuery
+            .dataset(DATASET, { projectId: PROJECT_ID })
+            .table(TABLE)
+            .insert(rows);
+    });
+}
+function pushNotificationToUser() {
+    return __awaiter(this, void 0, void 0, function* () {
+    });
+}
+const entry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const resolveRequest = yield logData(req);
+    console.log(resolveRequest);
+    res.status(200);
 });
-functions.http('secondaryPublicFacingFunction', (req, res) => {
-    res.status(200).send("Secondary function triggered");
-});
+Functions.http('entry', entry);

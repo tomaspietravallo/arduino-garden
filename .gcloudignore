@@ -1,0 +1,4 @@
+#!include:.gitignore
+/node_modules/
+cloud/functions/src
+cloud/functions/tests
