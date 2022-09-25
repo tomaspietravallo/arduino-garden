@@ -32,6 +32,9 @@ interface Request extends Functions.Request {
 };
 
 async function logData(req: Request) {
+  console.log(JSON.stringify(req.body));
+  console.log(JSON.stringify(req.body.arduino_data));
+  console.log(req.body.arduino_data);
   const rows: BigQueryDataSchema[] = req.body.arduino_data
   .map((data) => ({ date: data.u, soil_humidity: data.h, temperature: data.t }));
   

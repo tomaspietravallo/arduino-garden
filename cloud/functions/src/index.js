@@ -49,6 +49,9 @@ function logData(req) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log(JSON.stringify(req.body));
+                    console.log(JSON.stringify(req.body.arduino_data));
+                    console.log(req.body.arduino_data);
                     rows = req.body.arduino_data
                         .map(function (data) { return ({ date: data.u, soil_humidity: data.h, temperature: data.t }); });
                     return [4 /*yield*/, bigQuery
