@@ -6,5 +6,5 @@ functions.http('entry', (req, res) => {
   const body = req.body;
 
   // Send an HTTP response
-  res.send(`${body}`);
+  res.send(`${JSON.stringify(body)}`);
 });
