@@ -1,10 +1,12 @@
 /**
  * Responds to any HTTP request.
  *
- * @param {!express:Request} req HTTP request context.
- * @param {!express:Response} res HTTP response context.
+ * @param {Request} req HTTP request context.
+ * @param {Response} res HTTP response context.
  */
-exports.entry = (req, res) => {
-  let message = req.query.message || req.body.message || 'Hello World!';
+
+exports.entry = async (req, res) => {
+  const request = await req.json();
+  let message = request.query.message || request.body.message || 'Hello World!';
   res.status(200).send(message);
 };
