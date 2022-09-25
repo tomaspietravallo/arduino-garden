@@ -3,3 +3,5 @@
 cloud/functions/src
 cloud/functions/tests
 cloud/functions/tsconfig.json
+.env
+*key*
