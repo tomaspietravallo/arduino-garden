@@ -13,7 +13,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc ./src/index.ts --outDir . --skipLibCheck",
+    "build": "tsc --project tsconfig.json",
     "test": "jest --env=node"
   }
 }
