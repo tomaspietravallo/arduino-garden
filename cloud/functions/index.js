@@ -1,11 +1,9 @@
-var functions = require('@google-cloud/functions-framework');
-functions.http('entry', function (req, res) {
-    // Your code here
-    var body = "".concat(JSON.stringify(req.body));
-    console.log("logs: ".concat(body));
-    // Send an HTTP response
+import * as functions from '@google-cloud/functions-framework';
+functions.http('entry', (req, res) => {
+    const body = `${JSON.stringify(req.body)}`;
+    console.log(`logs: ${body}`);
     res.status(200).json(body);
 });
-functions.http('secondaryPublicFacingFunction', function (req, res) {
+functions.http('secondaryPublicFacingFunction', (req, res) => {
     res.status(200).send("Secondary function triggered");
 });
