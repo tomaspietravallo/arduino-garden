@@ -1,12 +1,10 @@
-/**
- * Responds to any HTTP request.
- *
- * @param {Request} req HTTP request context.
- * @param {Response} res HTTP response context.
- */
+const functions = require('@google-cloud/functions-framework');
 
-exports.entry = async (req, res) => {
-  const request = await req.json();
-  let message = request.query.message || request.body.message || 'Hello World!';
-  res.status(200).send(message);
-};
+// Register an HTTP function with the Functions Framework
+functions.http('entry', (req, res) => {
+  // Your code here
+  const body = req.body;
+
+  // Send an HTTP response
+  res.send(`${body}`);
+});
