@@ -2,3 +2,4 @@
 /node_modules/
 cloud/functions/src
 cloud/functions/tests
+cloud/functions/tsconfig.json
