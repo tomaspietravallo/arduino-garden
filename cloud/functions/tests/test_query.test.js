@@ -11,9 +11,9 @@ const message = {
 
 beforeEach(() => {
     Object.assign(process.env, {
-        PROJECT_ID: PROJECT_ID,
-        DATASET: DATASET,
-        TABLE: TABLE
+        PROJECT_ID: process.env-PROJECT_ID,
+        DATASET: process.env.DATASET,
+        TABLE: process.env.TABLE
     })
     jest.resetModules();
     GCP_Function = require('../index');
