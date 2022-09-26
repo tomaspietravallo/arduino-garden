@@ -59,8 +59,8 @@ export const entry: FunctionsTypes.HttpFunction = async (req: Request, res) => {
   console.log(JSON.stringify(req.body))
   console.log(JSON.stringify(req.body.arduino_data))
   console.log(typeof (req.body.arduino_data))
-  const resolveRequest = await logData(req);
-  console.log(resolveRequest)
+  // const resolveRequest = await logData(req);
+  // console.log(resolveRequest)
 
   res.status(200);
 };
