@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.entry = exports.pushNotificationToUser = exports.logData = void 0;
 const Functions = require('@google-cloud/functions-framework');
 const BigQuery = require('@google-cloud/bigquery');
 const PROJECT_ID = process.env.PROJECT_ID;
@@ -6,7 +9,7 @@ const TABLE = process.env.TABLE;
 const isJest = process.env.NODE_ENV === 'test';
 const bigQuery = new BigQuery.BigQuery({ projectId: PROJECT_ID, keyFilename: (isJest ? `../../key.json` : undefined) });
 ;
-export async function logData(req) {
+async function logData(req) {
     const rows = req.body.arduino_data
         .map((data) => ({ date: new Date(data.u), soil_humidity: data.h, temperature: data.t }));
     return await bigQuery.dataset(DATASET)
@@ -17,9 +20,11 @@ export async function logData(req) {
         createInsertId: false
     });
 }
-export async function pushNotificationToUser() {
+exports.logData = logData;
+async function pushNotificationToUser() {
 }
-export const entry = async (req, res) => {
+exports.pushNotificationToUser = pushNotificationToUser;
+const entry = async (req, res) => {
     console.log(JSON.stringify(req.body));
     req.body = JSON.parse(req.body);
     console.log(JSON.stringify(req.body));
@@ -27,5 +32,5 @@ export const entry = async (req, res) => {
     console.log(typeof (req.body.arduino_data));
     res.status(200);
 };
-Functions.http('entry', entry);
 exports.entry = entry;
+Functions.http('entry', exports.entry);
