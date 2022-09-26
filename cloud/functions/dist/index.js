@@ -32,6 +32,7 @@ const entry = async (req, res) => {
     // const resolveRequest = await logData(req);
     // console.log(resolveRequest)
     res.status(200);
+    res.end();
 };
 exports.entry = entry;
 Functions.http('entry', exports.entry);
