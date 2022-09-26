@@ -1,16 +1,23 @@
 import type * as FunctionsTypes from '@google-cloud/functions-framework';
-import type * as BigQueryTypes from '@google-cloud/functions-framework';
+import * as BigQueryTypes from '@google-cloud/bigquery';
 
-const Functions = require('@google-cloud/functions-framework');
-const BigQuery = require('@google-cloud/bigquery');
+import * as Functions from '@google-cloud/functions-framework';
+import * as BigQuery from '@google-cloud/bigquery';
 
 const PROJECT_ID = process.env.PROJECT_ID as string;
 const DATASET = process.env.DATASET as string;
 const TABLE = process.env.TABLE as string;
 
+// assert(typeof PROJECT_ID === "string", "@ .env Assert: Project ID is not String");
+// assert(typeof DATASET === "string", "@ .env Assert: DATASET is not String");
+// assert(typeof TABLE === "string", "@ .env Assert: TABLE is not String");
+
 const isJest = process.env.NODE_ENV === 'test';
 
-const bigQuery = new BigQuery.BigQuery({ projectId: PROJECT_ID, keyFilename: (isJest ? `../../key.json` : undefined) });
+const bigQuery = <BigQueryTypes.BigQuery> new BigQuery.BigQuery({
+  projectId: PROJECT_ID,
+  keyFilename: (isJest ? `../../key.json` : undefined)
+});
 
 interface RequestData {
   arduino_data: {
