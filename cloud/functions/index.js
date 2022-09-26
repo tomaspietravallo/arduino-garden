@@ -5,6 +5,6 @@ exports.entry = (req, res) => {
     const parsed = JSON.parse(req.body);
     console.log(JSON.stringify(parsed));
     console.log(JSON.stringify(parsed.arduino_data));
-    console.log(typeof parsed.arduino_data);
+    console.log(parsed.arduino_data);
     res.status(200);
 };
