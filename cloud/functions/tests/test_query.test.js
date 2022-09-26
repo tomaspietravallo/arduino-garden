@@ -1,5 +1,4 @@
 var GCP_Function = require('../index');
-var express = require('express')();
 const env = require('dotenv').config({path: './.env'});
 
 const testMessage = {
