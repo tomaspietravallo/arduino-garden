@@ -54,12 +54,11 @@ export async function pushNotificationToUser() {
 }
 
 export const entry: FunctionsTypes.HttpFunction = async (req: Request, res) => {
-  console.log(typeof req.body);
-  console.log(typeof req.body.arduino_data);
   // const resolveRequest = await logData(req);
   // console.log(resolveRequest)
 
   res.status(200);
+  res.end();
 };
 
 Functions.http('entry', entry);

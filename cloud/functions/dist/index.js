@@ -25,9 +25,8 @@ async function pushNotificationToUser() {
 }
 exports.pushNotificationToUser = pushNotificationToUser;
 const entry = async (req, res) => {
-    console.log(typeof req.body);
-    console.log(typeof req.body.arduino_data);
     res.status(200);
+    res.end();
 };
 exports.entry = entry;
 Functions.http('entry', exports.entry);
