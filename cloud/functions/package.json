@@ -14,7 +14,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc --project tsconfig.json && mv -f ./src/index.js ./index.js",
+    "build": "tsc --project tsconfig.json && mv -f ./src/index.js ./dist/index.js",
     "test": "jest --env=node"
   }
 }
