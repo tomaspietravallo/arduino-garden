@@ -54,7 +54,7 @@ export async function pushNotificationToUser() {
 }
 
 export const entry: FunctionsTypes.HttpFunction = async (req: Request, res) => {
-  console.log(JSON.stringify(req.body))
+  console.log(JSON.stringify(req.body));
   req.body = JSON.parse(req.body as unknown as string);
   console.log(JSON.stringify(req.body))
   console.log(JSON.stringify(req.body.arduino_data))

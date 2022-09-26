@@ -27,8 +27,6 @@ async function pushNotificationToUser() {
 exports.pushNotificationToUser = pushNotificationToUser;
 const entry = async (req, res) => {
     console.log(JSON.stringify(req.body));
-    req.body = JSON.parse(req.body);
-    console.log(JSON.stringify(req.body));
     console.log(JSON.stringify(req.body.arduino_data));
     console.log(typeof (req.body.arduino_data));
     // const resolveRequest = await logData(req);
