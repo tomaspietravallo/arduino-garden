@@ -1,4 +1,4 @@
-import * as BigQuery from '@google-cloud/bigquery';
+const BigQuery = require('@google-cloud/bigquery');
 
 exports.entry = (req, res) => {
     console.log(JSON.stringify(req.body));
