@@ -1,5 +1,8 @@
-import * as Functions from '@google-cloud/functions-framework';
-import * as BigQuery from '@google-cloud/bigquery';
+import type * as FunctionsTypes from '@google-cloud/functions-framework';
+import type * as BigQueryTypes from '@google-cloud/functions-framework';
+
+const Functions = require('@google-cloud/functions-framework');
+const BigQuery = require('@google-cloud/bigquery');
 
 const PROJECT_ID = process.env.PROJECT_ID as string;
 const DATASET = process.env.DATASET as string;
@@ -29,7 +32,7 @@ interface BigQueryDataSchema {
   water_pressure?: number;
 }
 
-interface Request extends Functions.Request {
+interface Request extends FunctionsTypes.Request {
   body: RequestData;
 };
 
@@ -50,7 +53,7 @@ export async function pushNotificationToUser() {
   /** empty */
 }
 
-export const entry: Functions.HttpFunction = async (req: Request, res) => {
+export const entry: FunctionsTypes.HttpFunction = async (req: Request, res) => {
   console.log(JSON.stringify(req.body))
   req.body = JSON.parse(req.body as unknown as string);
   console.log(JSON.stringify(req.body))
