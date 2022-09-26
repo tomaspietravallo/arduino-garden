@@ -1,4 +1,5 @@
 var GCP_Function = require('../index');
+var expressMock = require('./__mocks__/express');
 const env = require('dotenv').config({path: './.env'});
 
 const testMessage = {
