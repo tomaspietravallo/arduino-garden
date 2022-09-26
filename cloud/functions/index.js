@@ -38,7 +38,11 @@ export var entry = function (req, res) { return __awaiter(void 0, void 0, void 0
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log(JSON.stringify(req.body));
                 req.body = JSON.parse(req.body);
+                console.log(JSON.stringify(req.body));
+                console.log(JSON.stringify(req.body.arduino_data));
+                console.log(typeof (req.body.arduino_data));
                 return [4, logData(req)];
             case 1:
                 resolveRequest = _a.sent();
