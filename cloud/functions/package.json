@@ -14,6 +14,6 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc --project tsconfig.json && mv -f ./src/index.js ./dist/index.js && cp -rf ./package.json ./dist/package.json",
-    "test": "jest --env=node"
+    "test": "jest --env=node --collect-coverage=true"
   }
 }

@@ -13,8 +13,14 @@ const bigQuery = new BigQuery.BigQuery({
 });
 ;
 async function logData(req) {
-    const rows = req.body.arduino_data
-        .map((data) => ({ date: new Date(data.u), soil_humidity: data.h, temperature: data.t }));
+    if (req === undefined || req.body === undefined || req.body.arduino_data === undefined) {
+        throw new Error(`req.body.arduino_data is undefined. ${JSON.stringify(req)}::${JSON.stringify(req.body)}::${req.body.arduino_data}`);
+    }
+    const rows = (Array.isArray(req.body.arduino_data) ? req.body.arduino_data : [req.body.arduino_data])
+        .map((data) => ({ date: new Date(data.u * 1000), soil_humidity: data.h, temperature: data.t }));
+    if (!rows.every((e) => e.date.getFullYear() > 2020 && e.date.getFullYear() < 2100)) {
+        throw new Error(`Dates do not seem to be correct: ${JSON.stringify(rows)}`);
+    }
     return await bigQuery.dataset(DATASET)
         .table(TABLE)
         .insert(rows, {
