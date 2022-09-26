@@ -1,5 +1,6 @@
 var GCP_Function = require('../index');
 var express = require('express')();
+const env = require('dotenv').config({path: './.env'});
 
 const message = {
     "body": {
@@ -11,9 +12,9 @@ const message = {
 
 beforeEach(() => {
     Object.assign(process.env, {
-        PROJECT_ID: process.env-PROJECT_ID,
-        DATASET: process.env.DATASET,
-        TABLE: process.env.TABLE
+        PROJECT_ID: env.parsed.PROJECT_ID,
+        DATASET: env.parsed.DATASET,
+        TABLE: env.parsed.TABLE
     })
     jest.resetModules();
     GCP_Function = require('../index');
@@ -21,6 +22,7 @@ beforeEach(() => {
 
 describe("test message", ()=>{
     test("test", async () => {
+        message.body = JSON.stringify(message.body);
         const response = await GCP_Function.entry(message, { status: () => {} });
     })
 })

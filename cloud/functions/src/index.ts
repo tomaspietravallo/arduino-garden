@@ -51,6 +51,7 @@ export async function pushNotificationToUser() {
 }
 
 export const entry: Functions.HttpFunction = async (req: Request, res) => {
+  req.body = JSON.parse(req.body as unknown as string);
   const resolveRequest = await logData(req);
   console.log(resolveRequest)
 
