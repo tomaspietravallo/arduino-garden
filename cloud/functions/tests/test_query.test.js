@@ -26,7 +26,7 @@ describe("test entry function", () => {
         const Response = { status: jest.fn((val) => { return val }) };
         const api_response = GCP_Function.entry(testMessage, Response);
         await expect(api_response).resolves.not.toThrow();
-        expect(Response).toBeCalledTimes(1)
+        expect(Response.status).toBeCalledTimes(1)
     })
     test("test with mocks", async () => {
         testMessage.body = JSON.stringify(testMessage.body);
@@ -36,6 +36,6 @@ describe("test entry function", () => {
         const Response = { status: jest.fn((val) => { return val }) };
         const api_response = GCP_Function.entry(testMessage, Response);
         await expect(api_response).resolves.not.toThrow();
-        expect(Response).toBeCalledTimes(1)
+        expect(Response.status).toBeCalledTimes(1)
     })
 })
