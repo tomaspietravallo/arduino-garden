@@ -1,6 +1,3 @@
-import type * as FunctionsTypes from '@google-cloud/functions-framework';
-import * as BigQueryTypes from '@google-cloud/bigquery';
-
 import * as Functions from '@google-cloud/functions-framework';
 import * as BigQuery from '@google-cloud/bigquery';
 
