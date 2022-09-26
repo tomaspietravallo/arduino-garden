@@ -1,4 +1,4 @@
-var GCP_Function = require('../index');
+var GCP_Function = require('../dist/index');
 var expressMock = require('./__mocks__/express');
 const env = require('dotenv').config({path: './.env'});
 
@@ -17,14 +17,14 @@ beforeEach(() => {
         TABLE: env.parsed.TABLE
     })
     jest.resetModules();
-    GCP_Function = require('../index');
+    GCP_Function = require('../dist/index');
 })
 
 describe("test entry function", () => {
     // Calls actual GCP APIs
     test.skip("test with GCP", async () => {
         testMessage.body = JSON.stringify(testMessage.body);
-        const Response = { status: jest.fn((val) => { return val }) };
+        const Response = new expressMock.Response();
         const api_response = GCP_Function.entry(testMessage, Response);
         await expect(api_response).resolves.not.toThrow();
         expect(Response.status).toBeCalledTimes(1)
@@ -33,8 +33,8 @@ describe("test entry function", () => {
         testMessage.body = JSON.stringify(testMessage.body);
         jest.createMockFromModule('@google-cloud/functions-framework');
         jest.createMockFromModule('@google-cloud/bigquery');
-        GCP_Function = require('../index');
-        const Response = { status: jest.fn((val) => { return val }) };
+        GCP_Function = require('../dist/index');
+        const Response = new expressMock.Response();
         const api_response = GCP_Function.entry(testMessage, Response);
         await expect(api_response).resolves.not.toThrow();
         expect(Response.status).toBeCalledTimes(1)

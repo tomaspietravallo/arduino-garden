@@ -1,32 +1,39 @@
 exports.Response = class Response {
     constructor() {
-        this.status = 0;
+        this.statusCode = 0;
         this.ended = false;
         this.dataSent = [];
-    }
 
-    /** @param { number } val  */
-    status(val) {
-        if (typeof val !== "number") throw new Error("Jest.mock: Status is not a number");
-        this.throwIfEndedResponse();
-        this.status = val;
-        return this
-    };
+        this.status = jest.fn((val) => {
+            if (typeof val !== "number") throw new Error("Jest.mock: Status is not a number");
+            this.throwIfEndedResponse();
+            this.statusCode = val;
+            return this
+        });
 
-    json(data) {
-        this.dataSent.push(data)
-        return this
-    }
+        this.json = jest.fn((data) => {
+            this.throwIfEndedResponse();
+            this.dataSent.push(data)
+            return this
+        });
 
-    end() {
-        this.throwIfEndedResponse();
-        this.ended = true;
-        return this
-    };
+        this.send = jest.fn((data) => {
+            this.throwIfEndedResponse();
+            this.dataSent.push(data)
+            return this
+        });
 
-    throwIfEndedResponse() {
-        if (this.ended) {
-            throw new Error("Jest.mock: Response has ended but more communication was attemped")
-        }
+        this.end = jest.fn(() => {
+            this.throwIfEndedResponse();
+            this.ended = true;
+            return this
+        });
+
+        this.throwIfEndedResponse = jest.fn(() => {
+            if (this.ended) {
+                throw new Error("Jest.mock: Response has ended but more communication was attemped")
+            }
+
+        });
     }
 }

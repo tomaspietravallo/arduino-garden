@@ -22,17 +22,12 @@ async function logData(req) {
 }
 exports.logData = logData;
 async function pushNotificationToUser() {
-    /** empty */
 }
 exports.pushNotificationToUser = pushNotificationToUser;
 const entry = async (req, res) => {
-    console.log(JSON.stringify(req.body));
-    console.log(JSON.stringify(req.body.arduino_data));
-    console.log(typeof (req.body.arduino_data));
-    // const resolveRequest = await logData(req);
-    // console.log(resolveRequest)
+    console.log(typeof req.body);
+    console.log(typeof req.body.arduino_data);
     res.status(200);
-    res.end();
 };
 exports.entry = entry;
 Functions.http('entry', exports.entry);
