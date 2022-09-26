@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.entry = exports.pushNotificationToUser = exports.logData = void 0;
 const Functions = require('@google-cloud/functions-framework');
 const BigQuery = require('@google-cloud/bigquery');
 const PROJECT_ID = process.env.PROJECT_ID;
