@@ -28,3 +28,4 @@ export const entry = async (req, res) => {
     res.status(200);
 };
 Functions.http('entry', entry);
+exports.entry = entry;

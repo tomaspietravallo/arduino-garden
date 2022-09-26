@@ -66,3 +66,4 @@ export const entry: FunctionsTypes.HttpFunction = async (req: Request, res) => {
 };
 
 Functions.http('entry', entry);
+exports.entry = entry;
