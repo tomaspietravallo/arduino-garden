@@ -13,7 +13,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json && mv -f ./src/index.js ./index.js",
     "test": "jest --env=node"
   }
 }
