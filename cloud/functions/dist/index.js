@@ -34,6 +34,7 @@ async function pushNotificationToUser() {
 }
 exports.pushNotificationToUser = pushNotificationToUser;
 const entry = async (req, res) => {
+    const resolveRequest = await logData(req);
     res.status(200);
     res.end();
 };

@@ -66,7 +66,7 @@ export async function pushNotificationToUser() {
 }
 
 export const entry: Functions.HttpFunction = async (req: Request, res) => {
-  // const resolveRequest = await logData(req);
+  const resolveRequest = await logData(req);
   // console.log(resolveRequest)
 
   res.status(200);
