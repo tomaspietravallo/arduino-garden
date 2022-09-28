@@ -7,7 +7,7 @@ const createTestRequest = (messageBody) => ({ body: messageBody });
 const testMessage = Object.freeze(createTestRequest(
     {
         "arduino_data": [
-            { "u": 1664140542, "t": 10, "h": 0}
+            { "u": new Date().getTime()/1000, "t": 10, "h": 0}
         ]
     }
 ));
@@ -25,15 +25,19 @@ beforeEach(() => {
 })
 
 describe("entry", () => {
-    // Calls actual GCP APIs
+    // Calls actual GCP APIs (BigQuery)
     test.skip("test with GCP", async () => {
         jest.resetModules();
+        jest.dontMock('@google-cloud/bigquery');
+        jest.dontMock('@google-cloud/functions-framework');
         GCP_Function = require('../dist/index');
         const Response = new expressMock.Response();
         const api_response = GCP_Function.entry(testMessage, Response);
         await expect(api_response).resolves.not.toThrow();
         expect(Response.status).toBeCalledTimes(1);
         expect(Response.end).toHaveBeenCalledTimes(1);
+        jest.doMock('@google-cloud/bigquery');
+        jest.doMock('@google-cloud/functions-framework');
     })
     test("test with mocks", async () => {
         const Response = new expressMock.Response();
@@ -44,7 +48,7 @@ describe("entry", () => {
     })
     test("non-array messages", async () => {
         const Response = new expressMock.Response();
-        const api_response = GCP_Function.entry({ arduino_data: { u: 1664140542, t: 10, h: 0 } }, Response);
+        const api_response = GCP_Function.entry(createTestRequest({ arduino_data: { u: 1664140542, t: 10, h: 0 } }), Response);
         await expect(api_response).resolves.not.toThrow();
         expect(Response.status).toBeCalledTimes(1)
         expect(Response.end).toHaveBeenCalledTimes(1);
