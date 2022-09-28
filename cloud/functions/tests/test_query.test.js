@@ -78,6 +78,12 @@ describe("logData", () => {
     })
 })
 
+describe("pushNotificationToUser", () => {
+    test("test empty", () => {
+        expect(GCP_Function.pushNotificationToUser).not.toThrow()
+    })
+})
+
 describe("GCP Environment", () => {
     test("isJest=false, do not use test key.json tokens", () => {
         Object.assign(process.env, {
