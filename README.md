@@ -32,3 +32,8 @@ This Cloud Function stores the data in [BigQuery](https://cloud.google.com/bigqu
 > The data in BigQuery is stored indefinitely so it can later be analized traditionally, or as part of a future Machine Learning project
 
 ![](https://lucid.app/publicSegments/view/1cf532b9-edc9-4a68-8419-372b6e287ed9/image.jpeg)
+
+
+## Contributions
+
+Contributions are welcomed. Please be respectful, and remember there might be hardware-specific limitations, bugs, implementations details
