@@ -35,6 +35,14 @@ This Cloud Function stores the data in [BigQuery](https://cloud.google.com/bigqu
 ![](https://lucid.app/publicSegments/view/1cf532b9-edc9-4a68-8419-372b6e287ed9/image.jpeg)
 
 
+## Current road map
+- [x] GCP Function (read request and write to BigQuery)
+- [x] Write tests for GCP code
+- [x] Set up BigQuery
+- [] Finish Arduino/NodeMCU `Wire` `.ino` code (not part of Git yet)
+- [] Push notifications from GCP
+- [] Add set up guides to the repo
+
 ## Contributions
 
 Contributions are welcomed. Please be respectful, and remember there might be hardware-specific limitations, bugs, implementations details
