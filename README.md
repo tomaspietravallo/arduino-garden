@@ -11,6 +11,7 @@ This repo documents my adventures creating an arduino-based watering system for 
 - Capacitive soil humidity sensor. [Buy](https://www.amazon.com/gp/product/B07H3P1NRM)
 - Dupont cables
 - Some soldering (could be avoided)
+- [*Free* tier Google Cloud resources](https://cloud.google.com/free)
 
 > Please do note using an arduino uno ***and*** an ESP8266 12-E Kit is overkill, but that's what I ended up using for this project
 
