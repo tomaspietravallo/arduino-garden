@@ -23,4 +23,6 @@ The data from the arduino is sent using the [Wire](https://www.arduino.cc/refere
 
 This Cloud Function stores the data in [BigQuery](https://cloud.google.com/bigquery), and decides if sending out a notification is required. This can be done over email, IFTTT push notifications, whatsapp, or other. 
 
-> The data in BigQuery is stored indefinitely so it can later be analized traditionally, or as part of a future Machine Learning project 
+> The data in BigQuery is stored indefinitely so it can later be analized traditionally, or as part of a future Machine Learning project
+
+![](https://lucid.app/publicSegments/view/1cf532b9-edc9-4a68-8419-372b6e287ed9/image.jpeg)
